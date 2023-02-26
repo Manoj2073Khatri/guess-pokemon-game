@@ -63,26 +63,32 @@ const Pokedex= () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
-        <input type="text" name="search" placeholder="Search Pokemon" />
-        <button type="submit">Search</button>
-      </form>
-     
-      <div>
-        {pokemonData && pokemonData?.map((pokemon: PokemonType) => (
-          <div key={pokemon.name}>
-            <h3>{pokemon.name}</h3>
-            <p>HP: {pokemon.hp}</p>
-            <p>Moves:</p>
-            <ul>
-              {pokemon.moves.map((move: string) => (
-                <li key={move}>{move}</li>
-              ))}
-            </ul>
+    <div className='pokedex-wrapper'>
+       <div className='pokedex-body'>
+          <form onSubmit={handleSearch} className='form-container'>
+            <input className='form-input' type="text" name="search" placeholder="Search Pokemon" />
+            <button className='form-button' type="submit">Search</button>
+          </form>
+        
+          <div className='pokemon-details'>
+            {pokemonData && pokemonData?.map((pokemon: PokemonType) => (
+              <div key={pokemon.name} className="wrapper">
+                <h2 className='name'>{pokemon.name}</h2>
+                <p className='hp'>HP: {pokemon.hp}</p>
+                <div className='moves'>
+                  <p>Moves:</p>
+                  <ul>
+                    {pokemon.moves.map((move: string) => (
+                      <li key={move}>{move}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))
+            }
+            {!searchTerm && <p>Type the name of pokemon to show its stats.eg.seel,bulbasaur etc</p>}
           </div>
-        ))}
-      </div>
+       </div>
     </div>
   );
 };

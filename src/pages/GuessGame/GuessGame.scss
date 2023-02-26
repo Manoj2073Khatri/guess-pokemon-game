@@ -1,0 +1,26 @@
+.GuessGame-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+.steps{
+    position: absolute;
+    top: 20%;
+    right:10%;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    .heading{
+        margin: 0;
+
+    }
+    ul{
+      li{
+        margin: 5px 0;
+      }
+    }
+}

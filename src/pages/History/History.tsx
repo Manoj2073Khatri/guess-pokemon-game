@@ -27,11 +27,17 @@ function History() {
   };
 
   return (
-    <div>
+    <div className='history'>
       <h2>History</h2>
       {history.length > 0 ? (
-        <table>
+        <table className='pokemon'>
           <tbody>
+            <tr>
+              <th>Pokemon1</th>
+              <th>Pokemon2</th>
+              <th>User Guess</th>
+              <th>Correct Answer</th>
+            </tr>
             {history.map((item, index) => (
               <tr key={index}>
                 <td>{item.pokemon1.name}</td>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useQueries, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-
+import './Game.scss'
 interface Pokemon {
   name: string;
   url: string;
@@ -51,9 +51,6 @@ const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
   };
 
   const handlePlayAgain = () => {
-    // setUserGuess('');
-    // setWinner(null);
-    // setShow(false);
      navigate(0)
   };
 
@@ -69,34 +66,37 @@ const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
   };
 
   return (
-    <div>
-      <h2>Game</h2>
+    <div className='Game_wrapper'>
+      <h3 className='heading'>Select your guess</h3>
       {pokemon1 && pokemon2 && (
-        <div>
+        <div  className='Game_wrapper-body'>
           
-          <div>
-            <label>
+          <div className='radio'>
+          
               <input type="radio" name="guess" value={pokemon1.name} onChange={handleUserGuess} />
-              {pokemon1.name}
+              <label> 
+                {pokemon1.name}
             </label>
           </div>
-          <div>
-            <label>
+          <div className='radio'>
+           
               <input type="radio" name="guess" value={pokemon2.name} onChange={handleUserGuess} />
-              {pokemon2.name}
+              <label>
+                {pokemon2.name}
             </label>
           </div>
-          <button onClick={handleBattle}>Battle</button>
+
+          <button className='button' onClick={handleBattle}>Battle</button>
           {
-             show &&  <div>
+             show &&  <div className='stats'>
                         <div>{pokemon1stat.name} (HP: {pokemon1stat.stats[0].base_stat})</div>
                         <div>{pokemon2stat.name} (HP: {pokemon2stat.stats[0].base_stat})</div>
                       </div>
           }
           {winner && (
-            <div>
-              {winner.name} wins!
-              {userGuess.toLowerCase() === winner.name.toLowerCase() ? ' You guessed correctly!' : ' You guessed incorrectly!'}
+            <div className='result'>
+             <p className='winner'> {winner.name} wins!</p>
+             <p className='guess'> {userGuess.toLowerCase() === winner.name.toLowerCase() ? ' You guessed correctly!' : ' You guessed incorrectly!'}</p>
               <button onClick={handlePlayAgain}>Play again</button>
             </div>
           )}

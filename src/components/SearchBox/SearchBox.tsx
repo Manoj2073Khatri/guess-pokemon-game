@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import './SearchBox.scss'
@@ -18,7 +18,7 @@ function SearchBox({ onSelect }: SearchBoxProps) {
   const [searchTerm, setSearchTerm] = useState('');
   
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
- 
+  const [count,setCount]=useState<number>(0);
 
   const {isLoading, error, data, refetch}=useQuery('fetch data',async() =>await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=100&offset=0`))
 
@@ -29,32 +29,39 @@ function SearchBox({ onSelect }: SearchBoxProps) {
     setPokemonList(results.filter((pokemon: Pokemon) => pokemon.name.includes(searchTerm)));
   };
 
+
+  useEffect(() => {
+   
+    let isMounted = true;
+    if(isMounted && count===2){
+        setSearchTerm('');
+        setPokemonList([]);
+    }
+    return () => {
+     isMounted=false;
+    }
+  }, [count])
+  
   const handleSelect = (pokemon:Pokemon) => {
     setSearchTerm(pokemon.name);
     onSelect(pokemon);
+    setCount(count+1);
+   
   };
 
   return (
-    <div>
-      <label htmlFor="search">Search Pokemon:</label>
-      <input type="text" id="search" value={searchTerm} onChange={handleInputChange} />
-      {pokemonList.length > 0 && (
-        <ul>
-          {pokemonList.map((pokemon: Pokemon) => (
-            <li key={pokemon.url} onClick={() => handleSelect(pokemon)}>
-              {pokemon.name}
-            </li>
-          ))}
-        </ul>
-      )}
-      
-       {/* {
-        selectedPokemon1 && <div>{selectedPokemon1?.name}</div>
-       }
-       {
-        selectedPokemon2 && <div>{selectedPokemon2?.name}</div>
-       } */}
-     
+    <div className='searchComponent'>
+      <input placeholder='Search Pokemon' type="text" id="search" value={searchTerm} onChange={handleInputChange} />
+    
+        {pokemonList.length > 0 && (
+          <ul className='pokemonList'>
+            {pokemonList.map((pokemon: Pokemon) => (
+              <li className='pokemonList-name' key={pokemon.url} onClick={() => handleSelect(pokemon)}>
+                {pokemon.name}
+              </li>
+            ))}
+          </ul>
+        )}
     </div>
 
     

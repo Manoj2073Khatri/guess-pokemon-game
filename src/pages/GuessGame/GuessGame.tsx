@@ -34,13 +34,26 @@ const GuessGame = () => {
    }
 
   return (
-    <div>
+   <>
+    <div className='GuessGame-wrapper'>
         <h1>Guess Game</h1>
         <SearchBox onSelect={handleSelect}/>
         {
             selectedPokemon1 && selectedPokemon2 && <Game pokemon1={selectedPokemon1} pokemon2={selectedPokemon2} onAddToHistory={addToHistory}/>
         }
     </div>
+
+    <div className='steps'>
+       <h4 className='heading'>Steps to play</h4>
+       <ul>
+          <li>Search the pokemon you want to select eg.(seel ,bulbasaur) or just type any letter you will be shown list of pokemon</li>
+          <li>Must select two pokemon from list successively</li>
+          <li>Then a radio button will appear stating to guess the pokemon that will win</li>
+          <li>Start battle</li>
+          <li>Results will be displayed</li>
+       </ul>
+    </div>
+   </>
   )
 }
 
