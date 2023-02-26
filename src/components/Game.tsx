@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import SearchBox from './SearchBox';
+import { useQueries, useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 interface Pokemon {
   name: string;
@@ -14,26 +15,59 @@ interface GameProps {
   onAddToHistory: (pokemon1: Pokemon, pokemon2: Pokemon, userGuess: string, correctAnswer: string) => void;
 }
 
-const Game=({ pokemon1, pokemon2, onAddToHistory }: GameProps)=> {
+const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
   const [userGuess, setUserGuess] = useState('');
   const [winner, setWinner] = useState<Pokemon | null>(null);
+ 
+   const [show, setShow] = useState<boolean>(false);
+   const currentPathRef = useRef<string>(window.location.pathname);
+
+   const navigate=useNavigate();
+  
+
+
+  const queryResults = useQueries([
+    {
+      queryKey: ["pokemon1", pokemon1.url],
+      queryFn: () => axios.get(pokemon1.url).then((res) => res.data),
+    },
+    {
+      queryKey: ["pokemon2", pokemon2.url],
+      queryFn: () => axios.get(pokemon2.url).then((res) => res.data),
+    },
+  ]);
+ 
+  if (queryResults.some((result) => result.isLoading)) {
+    return <div>Loading...</div>;
+  }
+
+  const pokemon1stat = queryResults[0].data;
+  const pokemon2stat = queryResults[1].data;
+
+  console.log('pokemon1stat',pokemon1stat)
+  console.log('pokemon2stat',pokemon2stat)
+
 
   const handleUserGuess = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserGuess(event.target.value);
+  
   };
 
   const handlePlayAgain = () => {
-    setUserGuess('');
-    setWinner(null);
+    // setUserGuess('');
+    // setWinner(null);
+    // setShow(false);
+     navigate(0)
   };
 
   const handleBattle = () => {
-    const pokemon1HP = pokemon1.stats[0].base_stat;
-    const pokemon2HP = pokemon2.stats[0].base_stat;
+    const pokemon1HP = pokemon1stat.stats[0].base_stat;
+    const pokemon2HP = pokemon2stat.stats[0].base_stat;
 
     const correctAnswer = pokemon1HP > pokemon2HP ? pokemon1.name : pokemon2.name;
 
     setWinner(pokemon1HP > pokemon2HP ? pokemon1 : pokemon2);
+    setShow(true)
     onAddToHistory(pokemon1, pokemon2, userGuess, correctAnswer);
   };
 
@@ -42,8 +76,7 @@ const Game=({ pokemon1, pokemon2, onAddToHistory }: GameProps)=> {
       <h2>Game</h2>
       {pokemon1 && pokemon2 && (
         <div>
-          <div>{pokemon1.name} (HP: {pokemon1.stats[0].base_stat})</div>
-          <div>{pokemon2.name} (HP: {pokemon2.stats[0].base_stat})</div>
+          
           <div>
             <label>
               <input type="radio" name="guess" value={pokemon1.name} onChange={handleUserGuess} />
@@ -57,6 +90,12 @@ const Game=({ pokemon1, pokemon2, onAddToHistory }: GameProps)=> {
             </label>
           </div>
           <button onClick={handleBattle}>Battle</button>
+          {
+             show &&  <div>
+                        <div>{pokemon1stat.name} (HP: {pokemon1stat.stats[0].base_stat})</div>
+                        <div>{pokemon2stat.name} (HP: {pokemon2stat.stats[0].base_stat})</div>
+                      </div>
+          }
           {winner && (
             <div>
               {winner.name} wins!

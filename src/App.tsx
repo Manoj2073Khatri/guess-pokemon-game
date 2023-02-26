@@ -5,8 +5,9 @@ import { Route, Routes } from "react-router-dom";
 
 import Header from './components/Header';
 import Layout from './components/Layout';
-import GuessGame from './pages/guessGame';
-import Pokedex from './pages/pokeDex';
+import GuessGame from './pages/GuessGame';
+import Pokedex from './pages/Pokedex';
+import History from './pages/History';
 
 
 
@@ -18,10 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<GuessGame />} />
+          <Route path="/history" element={<History />} />
           <Route path="/pokedex" element={<Pokedex />} />
         </Route>
       </Routes>
-      <Footer />
     </>
   )
 }
