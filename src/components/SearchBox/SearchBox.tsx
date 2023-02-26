@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import Game from './Game';
+import './SearchBox.scss'
+
 
 export interface Pokemon {
   name: string;

@@ -3,11 +3,11 @@ import './App.scss'
 import { Route, Routes } from "react-router-dom";
 
 
-import Header from './components/Header';
-import Layout from './components/Layout';
-import GuessGame from './pages/GuessGame';
-import Pokedex from './pages/Pokedex';
-import History from './pages/History';
+import Header from './components/Header/Header';
+import Layout from './components/Layout/Layout';
+import GuessGame from './pages/GuessGame/GuessGame';
+import Pokedex from './pages/Pokedex/Pokedex';
+import History from './pages/History/History';
 
 
 

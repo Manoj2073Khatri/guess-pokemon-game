@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query';
-import Game from '../components/Game'
-import SearchBox, { Pokemon } from '../components/SearchBox'
-
+import Game from '../../components/Game/Game'
+import SearchBox, { Pokemon } from '../../components/SearchBox/SearchBox'
+import './GuessGame.scss'
 
 const GuessGame = () => {
     const [selectedPokemon1, setSelectedPokemon1] = useState<any>();

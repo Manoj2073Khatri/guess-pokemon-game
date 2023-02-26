@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './History.scss'
 interface Pokemon {
   name: string;
   url: string;

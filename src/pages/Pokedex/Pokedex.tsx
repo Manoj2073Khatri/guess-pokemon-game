@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import './Pokedex.scss'
 
 type PokemonType = {
   name: string;
