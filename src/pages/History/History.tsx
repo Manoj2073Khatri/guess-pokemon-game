@@ -28,7 +28,7 @@ function History() {
 
   return (
     <div className='history'>
-      <h2>History</h2>
+      <h2 className='heading'>History</h2>
       {history.length > 0 ? (
         <table className='pokemon'>
           <tbody>
@@ -49,7 +49,7 @@ function History() {
           </tbody>
         </table>
       ) : (
-        <p>No history yet</p>
+        <p className='message'>No history yet</p>
       )}
       <button onClick={handleClearHistory}>Clear history</button>
     </div>

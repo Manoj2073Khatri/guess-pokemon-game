@@ -5,7 +5,7 @@
        align-items: center;
     }
     &-body{
-
+        width: 400px;
         .form{
             &-container{
                 position: relative;
@@ -60,10 +60,10 @@
         .pokemon-details{
 
             background-color: #fff;
-            padding: 1rem;
+            padding: 1.5rem;
             margin-top: 2rem;
             border-radius: 10px;
-            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+           
             .wrapper{
                  .name{
                     margin: 0;
@@ -72,6 +72,7 @@
 
                  }
                  .hp{
+                    margin: 0;
 
                  }
                  .moves{
@@ -84,8 +85,16 @@
                     }
                  }
             }
+            .info{
+                margin: 0;
+                color: blue;
+            }
 
 
         }
     }
+}
+
+.error{
+    margin-top: 1rem;
 }

@@ -16,9 +16,9 @@ interface SearchBoxProps {
 
 function SearchBox({ onSelect }: SearchBoxProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
   const [count,setCount]=useState<number>(0);
+  const [selectedPokemon,setSelectedPokemon]=useState<string[]>([])
 
   const {isLoading, error, data, refetch}=useQuery('fetch data',async() =>await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=100&offset=0`))
 
@@ -45,6 +45,7 @@ function SearchBox({ onSelect }: SearchBoxProps) {
   const handleSelect = (pokemon:Pokemon) => {
     setSearchTerm(pokemon.name);
     onSelect(pokemon);
+    setSelectedPokemon([...selectedPokemon,pokemon.name])
     setCount(count+1);
    
   };
@@ -62,6 +63,16 @@ function SearchBox({ onSelect }: SearchBoxProps) {
             ))}
           </ul>
         )}
+
+       {
+        count!==2 && selectedPokemon && selectedPokemon.map((data,index)=>{
+          return<div className='selectedPokemon' key={index}>
+            <h4 className='heading'>Selected Data:</h4>
+            <p className='data'>1.{data}</p>
+            <p className='info'>--Select one more--</p>
+          </div>
+        })
+       }
     </div>
 
     

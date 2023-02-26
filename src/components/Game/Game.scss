@@ -1,9 +1,14 @@
 .Game_wrapper{
-    .heading{
-        margin-bottom: 5px;
-    }
+   
     &-body{
-       
+        .error{
+            margin-top: 1rem;
+            color: red;
+            font-size: 16px;
+        }
+        .heading{
+            margin-bottom: 5px;
+        }
         .radio{
            display: flex;
            justify-content: start;
@@ -59,8 +64,13 @@
                 border-radius: 0.25rem;
             }
             .guess{
-               text-decoration: underline;
-               color: green;
+               
+              .correct{
+                color: green;
+              }
+              .incorrect{
+                color: red;
+              }
             }
 
             button{

@@ -59,8 +59,8 @@ const Pokedex= () => {
   }
 
   if (error) {
-    return <div>data not found ,Try another keyword</div>;
-  }
+     return <div className='error'>Data not found ,Refresh page and Try another keyword</div>;
+   }
 
   return (
     <div className='pokedex-wrapper'>
@@ -86,7 +86,8 @@ const Pokedex= () => {
               </div>
             ))
             }
-            {!searchTerm && <p>Type the name of pokemon to show its stats.eg.seel,bulbasaur etc</p>}
+            {!searchTerm && <p className='info'>Type the name of pokemon to show its stats eg.(seel,bulbasaur etc)</p>}
+            
           </div>
        </div>
     </div>

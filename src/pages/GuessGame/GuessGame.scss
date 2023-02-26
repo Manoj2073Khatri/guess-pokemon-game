@@ -1,26 +1,36 @@
 .GuessGame-wrapper{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-width: 400px;
-}
-
-.steps{
-    position: absolute;
-    top: 20%;
-    right:10%;
-    width: 300px;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    .heading{
-        margin: 0;
-
-    }
-    ul{
-      li{
-        margin: 5px 0;
+    justify-content: start;
+    align-items: start;
+    margin-top: 1.5rem;
+    .GuessGame-body{
+   
+      width: 400px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-right: 1rem;
+      .heading-top{
+        margin: 0 0 1rem 0;
       }
     }
+    .steps{
+   
+      width: 300px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 1rem;
+      .heading{
+          margin: 0;
+          color: blue;
+  
+      }
+      ul{
+        li{
+          margin: 5px 0;
+        }
+      }
+  }
+   
 }
+

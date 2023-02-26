@@ -18,6 +18,7 @@ interface GameProps {
 const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
   const [userGuess, setUserGuess] = useState('');
   const [winner, setWinner] = useState<Pokemon | null>(null);
+  const [errMessage, setErrorMessage]=useState<string>('')
  
    const [show, setShow] = useState<boolean>(false);
    const currentPathRef = useRef<string>(window.location.pathname);
@@ -55,38 +56,52 @@ const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
   };
 
   const handleBattle = () => {
-    const pokemon1HP = pokemon1stat.stats[0].base_stat;
-    const pokemon2HP = pokemon2stat.stats[0].base_stat;
-
-    const correctAnswer = pokemon1HP > pokemon2HP ? pokemon1.name : pokemon2.name;
-
-    setWinner(pokemon1HP > pokemon2HP ? pokemon1 : pokemon2);
-    setShow(true)
-    onAddToHistory(pokemon1, pokemon2, userGuess, correctAnswer);
+    if(userGuess!==''){
+      const pokemon1HP = pokemon1stat.stats[0].base_stat;
+      const pokemon2HP = pokemon2stat.stats[0].base_stat;
+  
+      const correctAnswer = pokemon1HP > pokemon2HP ? pokemon1.name : pokemon2.name;
+  
+      setWinner(pokemon1HP > pokemon2HP ? pokemon1 : pokemon2);
+      setShow(true)
+      onAddToHistory(pokemon1, pokemon2, userGuess, correctAnswer);
+    }
+    else{
+      setErrorMessage('please select your guess...')
+    }
+   
   };
 
   return (
     <div className='Game_wrapper'>
-      <h3 className='heading'>Select your guess</h3>
+     
       {pokemon1 && pokemon2 && (
         <div  className='Game_wrapper-body'>
           
-          <div className='radio'>
-          
-              <input type="radio" name="guess" value={pokemon1.name} onChange={handleUserGuess} />
-              <label> 
-                {pokemon1.name}
-            </label>
-          </div>
-          <div className='radio'>
-           
-              <input type="radio" name="guess" value={pokemon2.name} onChange={handleUserGuess} />
-              <label>
-                {pokemon2.name}
-            </label>
-          </div>
+        {
+          !show  &&  <div>
+                          <h3 className='heading'>Select your guess</h3>
+                          <div className='radio'>
+                            
+                            <input type="radio" name="guess" value={pokemon1.name} onChange={handleUserGuess} />
+                            <label> 
+                              {pokemon1.name}
+                          </label>
+                        </div>
+                        <div className='radio'>
+                        
+                            <input type="radio" name="guess" value={pokemon2.name} onChange={handleUserGuess} />
+                            <label>
+                              {pokemon2.name}
+                          </label>
+                        </div>
+                        {
+                          errMessage && <div className='error'>{errMessage}</div>
+                        }
 
-          <button className='button' onClick={handleBattle}>Battle</button>
+                        <button className='button' onClick={handleBattle}>Battle</button>
+                    </div>
+        }
           {
              show &&  <div className='stats'>
                         <div>{pokemon1stat.name} (HP: {pokemon1stat.stats[0].base_stat})</div>
@@ -96,7 +111,7 @@ const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
           {winner && (
             <div className='result'>
              <p className='winner'> {winner.name} wins!</p>
-             <p className='guess'> {userGuess.toLowerCase() === winner.name.toLowerCase() ? ' You guessed correctly!' : ' You guessed incorrectly!'}</p>
+             <div className='guess'> {userGuess.toLowerCase() === winner.name.toLowerCase() ? <span className="correct"> You guessed correctly!</span> : <span className="incorrect">You guessed incorrectly!</span>}</div>
               <button onClick={handlePlayAgain}>Play again</button>
             </div>
           )}
