@@ -31,15 +31,10 @@ const Pokedex= () => {
     let isMounted = true;
     if(isMounted){
         const fetchData = async () => {
-   
-            refetch()
-             console.log('data',data);
-            
+           await refetch()
          };
      
          if (searchTerm) {
-             console.log('url',`https://pokeapi.co/api/v2/pokemon/${searchTerm}`)
-             console.log('search term',searchTerm)
             fetchData();
          }
     }
@@ -63,7 +58,7 @@ const Pokedex= () => {
   }
 
   if (error) {
-    return <div>Error</div>;
+    return <div>data not found ,Try another keyword</div>;
   }
 
   return (
@@ -72,6 +67,7 @@ const Pokedex= () => {
         <input type="text" name="search" placeholder="Search Pokemon" />
         <button type="submit">Search</button>
       </form>
+     
       <div>
         {pokemonData && pokemonData?.map((pokemon: PokemonType) => (
           <div key={pokemon.name}>

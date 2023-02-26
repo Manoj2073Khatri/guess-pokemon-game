@@ -25,17 +25,12 @@ function SearchBox({ onSelect }: SearchBoxProps) {
     setSearchTerm(event.target.value);
     refetch()
     const { results } = data?.data;
-    console.log(results)
     setPokemonList(results.filter((pokemon: Pokemon) => pokemon.name.includes(searchTerm)));
   };
 
   const handleSelect = (pokemon:Pokemon) => {
-   
     setSearchTerm(pokemon.name);
     onSelect(pokemon);
-        // console.log('selected1',selectedPokemon1)
-        // console.log('selected2',selectedPokemon1)
-
   };
 
   return (

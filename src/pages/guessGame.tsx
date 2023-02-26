@@ -17,7 +17,6 @@ const GuessGame = () => {
         } else if (!selectedPokemon2) {
         setSelectedPokemon2(pokemon);
         }
-    console.log('onSelect-',pokemon)
    }
 
    const addToHistory = (pokemon1: Pokemon, pokemon2: Pokemon, userGuess: string, correctAnswer: string) =>{

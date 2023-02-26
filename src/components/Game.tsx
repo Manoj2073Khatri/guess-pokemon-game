@@ -44,9 +44,6 @@ const Game=({ pokemon1, pokemon2,onAddToHistory }: GameProps)=> {
   const pokemon1stat = queryResults[0].data;
   const pokemon2stat = queryResults[1].data;
 
-  console.log('pokemon1stat',pokemon1stat)
-  console.log('pokemon2stat',pokemon2stat)
-
 
   const handleUserGuess = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserGuess(event.target.value);
